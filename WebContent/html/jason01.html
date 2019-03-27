@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+   var arr = [];
+   for(var i=0;i<=2;i++){
+	   var m = {};
+   m['key'] = i;
+   arr[i] = m;
+   }
+   console.log(arr); //arr을 jason형태에 맞춘 String으로 바꿔보자
+   var jsonStr = JSON.stringify(arr);
+   console.log(jsonStr);
+</script>
+</body>
+</html>
