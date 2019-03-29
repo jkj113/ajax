@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<input type="text" name="num1" id="num1">+ 
+<input type="text" name="num2" id="num2">=
+<input type="text" name="result" id="result"> 
+<!-- name으로 가져 올 수 있지만 java script에서 사용할려먼 id를 부여하는 것이 좋다. -->
+<button onclick="clac()">더하기</button>
+<script>
+function clac(){
+	var numObj1 = document.querySelector('#num1');
+	var numObj2 = document.querySelector('#num2');
+	var query = '?num1=' + numObj1.value;
+	query += '&num2=' +numObj2.value;
+	var url = '/html/calc_ok.jsp' + query;
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET',url);
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState==4 && xhr.status==200){
+			document.querySelector('#result').value=xhr.response;
+		}
+	}
+	xhr.send();
+}
+</script>
+</body>
+</html>

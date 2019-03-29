@@ -6,14 +6,24 @@
 </head>
 <body>
 	<script>
-		var xhr = new XMLHttpRequest(); //function의 호출과 메모리의 차이는 new가 있는지 없는지
-		xhr.open('GET','/ajax') //내가 호출할 주소를 적어준다. 대소문자를 가리지 않는데 보통 메소드는 대문자로 form메소드에 get, 액션에 /ajax라고 쓴 것과 같아.
-		xhr.onreadystatechange = function(){ //무슨 이벤트인지 알려면? on뒤에를 읽는다. 변할 때 일어나는 이벤트구나아~
-			if(xhr.readyState==4&&xhr.status==200){
-				console.log(xhr.response); //여기까지가 연결한거
+		function goAjax() {
+			var xhr = new XMLHttpRequest(); //function의 호출과 메모리의 차이는 new가 있는지 없는지
+			xhr.open('GET', '/ajax',false); //내가 호출할 주소를 적어준다. 대소문자를 가리지 않는데 보통 메소드는 대문자로 form메소드에 get, 액션에 /ajax라고 쓴 것과 같아.
+			//	alert(xhr.readyState);
+			xhr.onreadystatechange = function() { //무슨 이벤트인지 알려면? on뒤에를 읽는다. 변할 때 일어나는 이벤트구나아~
+				//		alert(xhr.readyState);
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					console.log(xhr.response); //여기까지가 연결한거
+			//		document.write(xhr.response) document의 내용 자체를 바꾼다 주소변경X
+				}
 			}
+			xhr.send();
+			alert(1);
 		}
-		xhr.send();
 	</script>
+	<form method="get" action="/ajax">
+		<button>전송</button>
+	</form>
+	<button onclick="goAjax()">GoAJAX</button>
 </body>
 </html>
