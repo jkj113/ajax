@@ -50,7 +50,8 @@ public class UserServlet extends HttpServlet {
 			Map<String,String> user = us.loginUser(uiPwd);
 			if(user!=null) {
 				String id = user.get(uiId);
-				if(uiId.equals(id)) {
+				String pwd = user.get(uiPwd);
+				if(uiId.equals(id)&&uiPwd.equals(pwd)) {
 					request.setAttribute("msg", "로그인에 성공하였씁니다!!");
 					request.setAttribute("url", "/");
 					RequestDispatcher rd = request.getRequestDispatcher("/views/msg/result");
