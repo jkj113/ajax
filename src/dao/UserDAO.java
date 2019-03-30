@@ -6,5 +6,5 @@ import java.util.Map;
 public interface UserDAO {
 	public int insertUser(Map<String, String> user);
 	public List<Map<String,String>> selectUserLsit(Map<String,String> user);
-	public Map<String, String> loginUser (String uiPwd);
+	public Map<String, String> loginUser (String userId);
 }

@@ -41,27 +41,35 @@ public class UserServlet extends HttpServlet {
 			if (us.insertUser(user) == 1) {
 				request.setAttribute("msg", "회원 가입에 성공하였습니다.");
 				request.setAttribute("url", "/");
-			} //원래 이런거는 service에서 return된 결과로 뭔가 하는 것은 service에서
+			} // 원래 이런거는 service에서 return된 결과로 뭔가 하는 것은 service에서
 			RequestDispatcher rd = request.getRequestDispatcher("/views/msg/result");
 			rd.forward(request, response);
-		}else if("login".equals(cmd)) {
+		} else if ("login".equals(cmd)) {
 			String uiId = request.getParameter("ui_id");
 			String uiPwd = request.getParameter("ui_pwd");
-			Map<String,String> user = us.loginUser(uiPwd);
-			if(user!=null) {
-				String id = user.get(uiId);
-				String pwd = user.get(uiPwd);
-				if(uiId.equals(id)&&uiPwd.equals(pwd)) {
-					request.setAttribute("msg", "로그인에 성공하였씁니다!!");
+			Map<String, String> user = us.loginUser(uiId);
+			if (user != null) {
+				String id = user.get("uiId");
+				String pwd = user.get("uiPwd");
+				if (uiId.equals(id) && uiPwd.equals(pwd)) {
+					request.setAttribute("msg", "로그인에 성공하였습니다!!");
 					request.setAttribute("url", "/");
 					RequestDispatcher rd = request.getRequestDispatcher("/views/msg/result");
 					rd.forward(request, response);
-				}else {
-					System.out.println("실패");
+				} else {
+					request.setAttribute("msg", "비밀번호가 틀렸습니다.");
+					request.setAttribute("url", "/");
+					RequestDispatcher rd = request.getRequestDispatcher("/views/msg/result");
+					rd.forward(request, response);
 				}
 
+			} else {
+				request.setAttribute("msg", "아이디가 없습니다.");
+				request.setAttribute("url", "/");
+
+				RequestDispatcher rd = request.getRequestDispatcher("/views/msg/result");
+				rd.forward(request, response);
 			}
-			
 		}
 	}
 }

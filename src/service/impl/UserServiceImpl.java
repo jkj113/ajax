@@ -21,8 +21,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Map<String, String> loginUser(String uiPwd) {
-		return udao.loginUser(uiPwd);
+	public Map<String, String> loginUser(String userId) {
+		return udao.loginUser(userId);
 	}
 }
 

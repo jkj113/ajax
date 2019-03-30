@@ -14,8 +14,8 @@ import db.DBCon;
 public class UserDAOImpl implements UserDAO {
 	private String insertUser = "insert into user_info(ui_num, ui_id, ui_pwd, ui_name, ui_email)"
 			                  + " values(seq_ui_num.nextval,?,?,?,?)";
-	private String selectUserList = "select ui_num, ui_id, ui_pwd, ui_name, ui_email from user_info";
-	private String loginUser = "select ui_id, ui_pwd from user_info where ui_pwd=?";
+	private String selectUserList = "select * from user_info";
+	private String loginUser = "select ui_id, ui_pwd from user_info where ui_id=?";
 
 	@Override
 	public int insertUser(Map<String, String> user) {	
@@ -35,14 +35,7 @@ public class UserDAOImpl implements UserDAO {
 	}
      public static void main(String[] args) {
     	 UserDAO ud = new UserDAOImpl();
-    	 Map<String,String> user = new HashMap<>();
-//    	 user.put("uiId","A");
-//    	 user.put("uiPwd","2222");
-//    	 user.put("uiName","아니이");
-//    	 user.put("uiEmail","A@naver,com");
-//    	 System.out.println(ud.insertUser(user));
-//    	 System.out.println(ud.selectUserLsit(user));
-    	 System.out.println(ud.loginUser("1111"));
+    	 System.out.println(ud.loginUser("id"));
     			 }
 	
 	@Override
@@ -66,21 +59,22 @@ public class UserDAOImpl implements UserDAO {
 		return userList;
 	}
 	@Override
-	public Map<String, String> loginUser(String uiPwd) {
+	public Map<String, String> loginUser(String userId) {
 		try {
 			PreparedStatement ps = DBCon.getCon().prepareStatement(loginUser);
-			ps.setString(1, uiPwd);
+			ps.setString(1, userId);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				Map<String,String> uList = new HashMap<>();
-				uList.put("uiId",rs.getString("ui_id"));
-				uList.put("uiPwd",rs.getString("ui_pwd"));
-				return uList;
+				Map<String,String> user = new HashMap<>();
+				user.put("uiId",rs.getString("ui_id"));
+				user.put("uiPwd",rs.getString("ui_pwd"));
+				return user;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 	}
 		return null;
 	}
+	
 	}
 
