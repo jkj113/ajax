@@ -14,7 +14,8 @@ import db.DBCon;
 public class UserDAOImpl implements UserDAO {
 	private String insertUser = "insert into user_info(ui_num, ui_id, ui_pwd, ui_name, ui_email)"
 			                  + " values(seq_ui_num.nextval,?,?,?,?)";
-	private String UserList = "select ui_id, ui_pwd from user_info";
+	private String selectUserList = "select ui_num, ui_id, ui_pwd, ui_name, ui_email from user_info";
+	private String loginUser = "select ui_id, ui_pwd from user_info where ui_pwd=?";
 
 	@Override
 	public int insertUser(Map<String, String> user) {	
@@ -40,23 +41,46 @@ public class UserDAOImpl implements UserDAO {
 //    	 user.put("uiName","아니이");
 //    	 user.put("uiEmail","A@naver,com");
 //    	 System.out.println(ud.insertUser(user));
-    	 System.out.println(ud.userLsit(user));
+//    	 System.out.println(ud.selectUserLsit(user));
+    	 System.out.println(ud.loginUser("1111"));
     			 }
+	
 	@Override
-	public List<Map<String, String>> userLsit(Map<String, String> user) {
-		List<Map<String,String>> uList = new ArrayList();
+	public List<Map<String, String>> selectUserLsit(Map<String, String> user) {
+		List<Map<String,String>> userList = new ArrayList<>();
 		try {
-			PreparedStatement ps = DBCon.getCon().prepareStatement(UserList);
+			PreparedStatement ps = DBCon.getCon().prepareStatement(selectUserList);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				Map<String,String> u = new HashMap<>();
-				u.put("uiId", rs.getString("ui_id"));
-				u.put("uiPwd", rs.getString("ui_pwd"));
-				uList.add(u);
+				Map<String,String> uList = new HashMap<>();
+	     		uList.put("uiNum",rs.getString("ui_num"));
+				uList.put("uiId",rs.getString("ui_id"));
+				uList.put("uiPwd",rs.getString("ui_pwd"));
+				uList.put("uiName",rs.getString("ui_name"));
+				uList.put("uiEmail",rs.getString("ui_email"));
+				userList.add(uList);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return uList;
+		return userList;
 	}
-}
+	@Override
+	public Map<String, String> loginUser(String uiPwd) {
+		try {
+			PreparedStatement ps = DBCon.getCon().prepareStatement(loginUser);
+			ps.setString(1, uiPwd);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Map<String,String> uList = new HashMap<>();
+				uList.put("uiId",rs.getString("ui_id"));
+				uList.put("uiPwd",rs.getString("ui_pwd"));
+				return uList;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+	}
+		return null;
+	}
+	}
+

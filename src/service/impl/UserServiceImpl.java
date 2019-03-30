@@ -16,8 +16,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Map<String, String>> userLsit(Map<String, String> user) {
-		return udao.userLsit(user);
+	public List<Map<String, String>> selectUserLsit(Map<String, String> user) {
+		return udao.selectUserLsit(user);
 	}
 
+	@Override
+	public Map<String, String> loginUser(String uiPwd) {
+		return udao.loginUser(uiPwd);
+	}
 }
+
