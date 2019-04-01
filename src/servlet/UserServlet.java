@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import service.UserService;
 import service.impl.UserServiceImpl;
@@ -45,31 +46,51 @@ public class UserServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/views/msg/result");
 			rd.forward(request, response);
 		} else if ("login".equals(cmd)) {
+//			String uiId = request.getParameter("ui_id");
+//			String uiPwd = request.getParameter("ui_pwd");
+//			Map<String, String> user = us.loginUser(uiId);
+//			request.setAttribute("msg", "아이디나 비밀번호가 잘못되었습니다.");
+//			if (user != null) {
+//				String id = user.get("uiId");
+//				String pwd = user.get("uiPwd");
+//				if (uiId.equals(id) && uiPwd.equals(pwd)) {
+//					request.setAttribute("msg", "로그인에 성공하였습니다!!");
+//					request.setAttribute("url", "/");
+//					RequestDispatcher rd = request.getRequestDispatcher("/views/msg/result");
+//					rd.forward(request, response);
+//				} else {
+//					request.setAttribute("msg", "비밀번호가 틀렸습니다.");
+//					request.setAttribute("url", "/");
+//					RequestDispatcher rd = request.getRequestDispatcher("/views/msg/result");
+//					rd.forward(request, response);
+//				}
+//
+//			} else {
+//				request.setAttribute("msg", "아이디가 없습니다.");
+//				request.setAttribute("url", "/");
+//
+//				RequestDispatcher rd = request.getRequestDispatcher("/views/msg/result");
+//				rd.forward(request, response);
+//			}
 			String uiId = request.getParameter("ui_id");
 			String uiPwd = request.getParameter("ui_pwd");
-			Map<String, String> user = us.loginUser(uiId);
+			Map<String, String> user = us.login(uiId, uiPwd);
+			request.setAttribute("msg", "아이디나 비밀번호가 잘못되었습니다."); //실패를 가정한다.
 			if (user != null) {
-				String id = user.get("uiId");
-				String pwd = user.get("uiPwd");
-				if (uiId.equals(id) && uiPwd.equals(pwd)) {
-					request.setAttribute("msg", "로그인에 성공하였습니다!!");
-					request.setAttribute("url", "/");
-					RequestDispatcher rd = request.getRequestDispatcher("/views/msg/result");
-					rd.forward(request, response);
-				} else {
-					request.setAttribute("msg", "비밀번호가 틀렸습니다.");
-					request.setAttribute("url", "/");
-					RequestDispatcher rd = request.getRequestDispatcher("/views/msg/result");
-					rd.forward(request, response);
-				}
-
-			} else {
-				request.setAttribute("msg", "아이디가 없습니다.");
-				request.setAttribute("url", "/");
-
-				RequestDispatcher rd = request.getRequestDispatcher("/views/msg/result");
-				rd.forward(request, response);
+				HttpSession session = request.getSession();
+				session.setAttribute("user", user);   //request를 사용하면 index.jsp까지만 사용되고 사라진다.
+				request.setAttribute("msg", "로그인에 성공하였습니다.");
 			}
+			request.setAttribute("url", "/");
+			RequestDispatcher rd = request.getRequestDispatcher("/views/msg/result");
+			rd.forward(request, response);
+		} else if ("logout".equals(cmd)) {
+			HttpSession session = request.getSession();
+			session.invalidate();  //가지고 있는 것들을 제거한다.
+			request.setAttribute("msg", "로그아웃 되었습니다.");
+			request.setAttribute("url", "/");
+			RequestDispatcher rd = request.getRequestDispatcher("/views/msg/result");
+			rd.forward(request, response);
 		}
 	}
 }

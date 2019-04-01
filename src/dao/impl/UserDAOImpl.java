@@ -15,7 +15,7 @@ public class UserDAOImpl implements UserDAO {
 	private String insertUser = "insert into user_info(ui_num, ui_id, ui_pwd, ui_name, ui_email)"
 			                  + " values(seq_ui_num.nextval,?,?,?,?)";
 	private String selectUserList = "select * from user_info";
-	private String loginUser = "select ui_id, ui_pwd from user_info where ui_id=?";
+	private String loginUser = "select ui_id, ui_pwd,ui_name,ui_email from user_info where ui_id=? and ui_pwd=?";
 
 	@Override
 	public int insertUser(Map<String, String> user) {	
@@ -33,10 +33,10 @@ public class UserDAOImpl implements UserDAO {
 	}
 		return 0;
 	}
-     public static void main(String[] args) {
-    	 UserDAO ud = new UserDAOImpl();
-    	 System.out.println(ud.loginUser("id"));
-    			 }
+//     public static void main(String[] args) {
+//    	 UserDAO ud = new UserDAOImpl();
+//    	 System.out.println(ud.loginUser("id"));
+//    			 }
 	
 	@Override
 	public List<Map<String, String>> selectUserLsit(Map<String, String> user) {
@@ -58,21 +58,43 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return userList;
 	}
+//	@Override
+//	public Map<String, String> loginUser(String userId) {
+//		try {
+//			PreparedStatement ps = DBCon.getCon().prepareStatement(loginUser);
+//			ps.setString(1, userId);
+//			ResultSet rs = ps.executeQuery();
+//			while(rs.next()) {
+//				Map<String,String> user = new HashMap<>();
+//				user.put("uiId",rs.getString("ui_id"));
+//				user.put("uiPwd",rs.getString("ui_pwd"));
+//				return user;
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//	}
+//		return null;
+//	}
 	@Override
-	public Map<String, String> loginUser(String userId) {
+	public Map<String, String> selectUserById(String uiId, String uiPwd) {
 		try {
 			PreparedStatement ps = DBCon.getCon().prepareStatement(loginUser);
-			ps.setString(1, userId);
+			ps.setString(1, uiId);
+			ps.setString(2, uiPwd);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Map<String,String> user = new HashMap<>();
-				user.put("uiId",rs.getString("ui_id"));
-				user.put("uiPwd",rs.getString("ui_pwd"));
+				user.put("uiId", rs.getString("ui_id"));
+				user.put("uiName", rs.getString("ui_name"));
+				user.put("uiPwd", rs.getString("ui_pwd"));
+				user.put("uiEmail", rs.getString("ui_email"));
 				return user;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-	}
+		}finally {
+			DBCon.close();
+		}
 		return null;
 	}
 	
