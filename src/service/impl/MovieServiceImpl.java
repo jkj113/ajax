@@ -20,4 +20,14 @@ private MovieDAO mdao = new MovieDAOImpl();
 		return mdao.insertMovie(movie);
 	}
 
+	@Override
+	public Map<String, String> selectMovieByMiNum(int miNum) {
+		return mdao.selectMovieByMiNum(miNum);
+	}
+
+	@Override
+	public int deleteMovie(int miNum) {
+		return mdao.deleteMovie(miNum);
+	}
+
 }

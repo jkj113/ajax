@@ -1,7 +1,7 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -11,32 +11,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
 import service.MovieService;
 import service.impl.MovieServiceImpl;
 import utils.Command;
 
-public class MovieServlet extends HttpServlet {
+public class AJAXMovieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MovieService ms = new MovieServiceImpl();
+	private Gson gson = new Gson();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String cmd = Command.getCmd(request);
-		// Command 클래스를 만들어서 이제 필요없다.
-//		String uri = request.getRequestURI();
-//		int idx = uri.lastIndexOf("/"); // /두개 중에서 마지막꺼
-//		if (idx == 0) {
-//			throw new ServletException("원하는 서비스가 부정확합니다.");
-//		} else { // throw하면 밑에꺼 실행안 하니까 else안 해줘도
-//			String cmd = uri.substring(idx + 1); // list를 빼와야하니까 l부터 시작 +1
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
 		if ("list".equals(cmd)) {
-			request.setAttribute("list", ms.selectMovieList());
-			Command.goPage(request,response,"/views/movie/movie_list");
+			PrintWriter pw = response.getWriter();
+			pw.println(gson.toJson(ms.selectMovieList()));
 		} else {
 			try {
 				int miNum = Integer.parseInt(cmd);
-				request.setAttribute("movie", ms.selectMovieByMiNum(miNum));
-				Command.goPage(request,response,"/views/movie/view");
+				PrintWriter pw = response.getWriter();
+				pw.println(gson.toJson(ms.selectMovieByMiNum(miNum)));
 			} catch (Exception e) {
 				throw new ServletException("올바은 상세조회 값이 아닙니다.");
 			}
@@ -60,15 +58,7 @@ public class MovieServlet extends HttpServlet {
 					msg = "등록에 성공하였습니다.";
 					url = "/movie/list"; 
 				}
-				Command.goResultPage(request,response,url,msg);
-//				request.setAttribute("url", "/movie/list"); //최종 목적지
-//				RequestDispatcher rd = request.getRequestDispatcher("/views/msg/result");
-//				rd.forward(request, response);
-//			  }else {
-//				request.setAttribute("msg", "등록에 실패하였습니다.");
-//				request.setAttribute("url", "/");
-//				RequestDispatcher rd = request.getRequestDispatcher("/views/msg/result");
-//				rd.forward(request, response);
+				Command.goResultPage(request,response,url,msg);;
 			} else if("delete".equals(cmd)){
 					HttpSession hs = request.getSession();
 					if(hs.getAttribute("user")==null) {

@@ -25,7 +25,7 @@
 		</tr>
 	</c:if>
 	<c:forEach items="${list}" var="movie">
-		<tr>
+		<tr style="cursor:pointer" onmouseover="this.style.backgroundColor='red'" onmouseout="this.style.backgroundColor=''" onclick="goPage('${movie.mi_num}')">
 			<td>${movie.mi_num}</td>
 			<td>${movie.mi_name}</td>
 			<td>${movie.mi_year}</td>
@@ -38,6 +38,11 @@
 	<c:if test="${sessionScope.user!=null}">
 	<a href="/views/movie/insert">영화 등록</a>
 	</c:if>
-	
+	<script>
+	function goPage(miNum){
+		location.href="/movie/"+miNum;
+		
+	}
+	</script>
 </body>
 </html>
