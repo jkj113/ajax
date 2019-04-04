@@ -9,52 +9,41 @@ import java.util.Properties;
 
 
 public class DBCon {
-	private static final String URL;
-	private static final String USER;
-	private static final String PASSWORD;
-	private static final String DRIVER;
+    private static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
+    private static String USER = "osfu";
+    private static String PASSWORD = "12345678";
+    private static String DRIVER = "oracle.jdbc.OracleDriver";
     private static Connection con = null;
-   
-    static {
-		InputStream is = DBCon.class.getResourceAsStream("/com/addr/db/config/db.properties");
-		Properties prop = new Properties();
-		try {
-			prop.load(is);
-		} catch (IOException e) {
+    
+    public static Connection getCon() {
+    	try {
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL,USER,PASSWORD);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		URL = prop.getProperty("url");
-		USER = prop.getProperty("user");
-		PASSWORD = prop.getProperty("password");
-		DRIVER = prop.getProperty("classname");
-    }	
-		
-		public static Connection getCon()  {
-			if(con==null) {
-			try {
-				Class.forName(DRIVER);
-				con = DriverManager.getConnection(URL,USER,PASSWORD);
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			}
-			return con;
+    	return con;
 		}
-		
-	public static void close() {
-		if(con!=null) {
-			try {
-				if(!con.isClosed()) {
-					
-				}
-				con.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
+
+
+public static void close() {
+	if(con!=null) {
+		try {
+			if(!con.isClosed()) {
+				
 			}
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		con=null;
+	}
+	con=null;
+}
+	public static void main(String[] args) {
+		getCon();
+		close();
 	}
 }
 
