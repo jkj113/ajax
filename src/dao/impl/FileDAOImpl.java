@@ -5,10 +5,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import dao.AddressDAO;
+import dao.FileDAO;
 import db.DBCon;
 
-public class AddressDAOImpl implements AddressDAO {
+public class FileDAOImpl implements FileDAO {
 	private static final String INSERT_ADDRESS = " insert into address values(seq_ad_num.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	@Override

@@ -18,7 +18,8 @@ function search(){
 //검색했을 때 결과 값이 현재 페이지로 올 필요는 없지만
 //pageCount는 가지고 가야한다. 몇개씩 볼 것인지 정한거니까
 </script>
-<label for="ad_dong">읍면동 : </label><input type="text" name="ad_dong" id="ad_dong">
+
+<label for="ad_dong">읍면동 : </label><input type="text" name="ad_dong" id="ad_dong" value="${param.ad_dong}">
 <button onclick="search()">검색</button>
 
 <select name="pageCount" onchange="changePageCount(this)">
@@ -76,21 +77,21 @@ selected
 					<a href="/addr/list=${1}&pageCount=${pageCount}">◀</a>
 				</c:if> 
 				<c:if test="${page>10}">
-					<a href="/addr/list?page=${page-10}&pageCount=${pageCount}">◁</a>
+					<a href="/addr/list?page=${page-10}&pageCount=${pageCount}&ad_dong=${param.ad_dong}">◁</a>
 				</c:if>
 				 <c:forEach var="p" begin="${fBlock}" end="${lBlock}">   	<!-- 변수명을 p라고 바꾼 이유는 Service에 이미 page를 넣어줘서 자기 자신이랑 비교하니까 -->
 					<c:if test="${p!=page}">
-						<a href="/addr/list?page=${p}&pageCount=${pageCount}&ad_dong="+'${addr.ad_dong}'>[${p}]</a>
+						<a href="/addr/list?page=${p}&pageCount=${pageCount}&ad_dong=${param.ad_dong}">[${p}]</a>
 					</c:if>
 					<c:if test="${p==page}"> 					<!-- 현재 페이지와 p값이 같을 경우는 두껍게 -->
 						<b>[${p}]</b>
 					</c:if>
 				</c:forEach>
 				<c:if test="${(totalPageCnt-10)>=page}">
-					<a href="/addr/list?page=${page+10}&pageCount=${pageCount}">▷</a>
+					<a href="/addr/list?page=${page+10}&pageCount=${pageCount}&ad_dong=${param.ad_dong}">▷</a>
 					</c:if>
 					<c:if test="${totalPageCnt!=page}">
-					<a href="/addr/list?page=${totalPageCnt}&pageCount=${pageCount}">▶</a>
+					<a href="/addr/list?page=${totalPageCnt}&pageCount=${pageCount}&ad_dong=${param.ad_dong}">▶</a>
 					</c:if>
 				</tr>
 				<tr>

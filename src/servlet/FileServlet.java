@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.FileService;
 import service.impl.FileServiceImpl;
+import utils.Command;
 import utils.UploadFile;
 
 
@@ -28,7 +29,9 @@ public class FileServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		fs.parseText(request);
+		Map<String,String> rMap = fs.parseText(request);
+		Command.printJSON(response, rMap);
+		System.out.println(rMap);
 	}
 
 }

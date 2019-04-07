@@ -16,13 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.fileupload.FileItem;
 
-import dao.AddressDAO;
-import dao.impl.AddressDAOImpl;
+import dao.FileDAO;
+import dao.impl.FileDAOImpl;
 import service.FileService;
 import utils.UploadFile;
 
 public class FileServiceImpl implements FileService {
-	private AddressDAO adao = new AddressDAOImpl();
+	private FileDAO adao = new FileDAOImpl();
 
 	@Override
 	public Map<String, String> parseText(HttpServletRequest request) throws ServletException{

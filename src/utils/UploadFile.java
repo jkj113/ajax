@@ -17,7 +17,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 public class UploadFile {
 	private static final long serialVersionUID = 1L;
 	private static final String TMP_PATH = System.getProperty("java.io.tmpdir");
-	private static final String TARGET_PATH = "D:\\study\\git\\ajax\\WebContent\\WEB-INF\\addr";
+	private static final String TARGET_PATH = "E:\\javastudy\\workspace\\git\\ajax\\WebContent\\WEB-INF\\addr";
 	private static final int MEMORY_SIZE = 10 * 1024 * 1024;
 	private static final int TOTAL_SIZE = 1000 * 1024 * 1024;
 	private static final int FIFLE_SIZE = 1000 * 1024 * 1024;
