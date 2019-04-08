@@ -9,7 +9,7 @@
 <body>
 <script>
 function changePageCount(obj){
-	location.href="/addr/list?page=${page}&pageCount="+obj.value;
+	location.href="/addr/list?page=${page}&ad_dong=${param.ad_dong}&pageCount="+obj.value;
 } //바뀐 값을 보내야하니까 obj.value
 function search(){
 	var ad_dong = document.querySelector('#ad_dong').value;
@@ -65,7 +65,7 @@ selected
 				<td>${addr.ad_num}</td>
 				<td>${addr.ad_sido}</td>
 				<td>${addr.ad_gugun}</td>
-				<td>${addr.ad_dong}</td>
+				<td><a href="/addr/view?ad_num=${addr.ad_num}&page=${page}&pageCount=${pageCount}&ad_dong=${param.ad_dong}">${addr.ad_dong}</a></td>
 				<td>${addr.ad_lee}</td>
 				<td>${addr.ad_bunji}</td>
 				<td>${addr.ad_ho}</td>
@@ -73,8 +73,8 @@ selected
 		</c:forEach>
 		<tr>
 			<td colspan="7" align="center">
-			<c:if test="${page!=1}">
-					<a href="/addr/list=${1}&pageCount=${pageCount}">◀</a>
+			<c:if test="${1!=page}">
+					<a href="/addr/list?page=${1}&pageCount=${pageCount}">◀</a>
 				</c:if> 
 				<c:if test="${page>10}">
 					<a href="/addr/list?page=${page-10}&pageCount=${pageCount}&ad_dong=${param.ad_dong}">◁</a>

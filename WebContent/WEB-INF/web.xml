@@ -82,4 +82,12 @@
 		<servlet-name>AddrServlet1</servlet-name>
 		<url-pattern>/addr/*</url-pattern>
 	</servlet-mapping>
+		<servlet>
+		<servlet-name>AddrServlet2</servlet-name>
+		<servlet-class>servlet.AddrServlet2</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddrServlet2</servlet-name>
+		<url-pattern>/addr2/*</url-pattern>
+	</servlet-mapping>
 </web-app>

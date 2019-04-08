@@ -1,7 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -77,6 +79,11 @@ public class UserServlet extends HttpServlet {
 			Map<String, String> user = us.login(uiId, uiPwd);
 			request.setAttribute("msg", "아이디나 비밀번호가 잘못되었습니다."); //실패를 가정한다.
 			if (user != null) {
+				if(request.getServletContext().getAttribute("userMap")==null) {
+					request.getServletContext().setAttribute("userMap", new HashMap<>());
+				}
+				Map<String,List<String>> userMap = (Map<String,List<String>>) request.getServletContext().getAttribute("userMap");
+				userMap.put(user.get("uiId"),new ArrayList<>());
 				HttpSession session = request.getSession();
 				session.setAttribute("user", user);   //request를 사용하면 index.jsp까지만 사용되고 사라진다.
 				request.setAttribute("msg", "로그인에 성공하였습니다.");
