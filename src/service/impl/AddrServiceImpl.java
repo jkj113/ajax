@@ -17,6 +17,7 @@ public class AddrServiceImpl implements AddrService {
 	@Override
 	public List<Map<String, String>> selectAddrList(HttpServletRequest request) {
 		Map<String,String> paramMap = Command.getSingleMap(request);
+		
 		int page = 1;
 		int pageCount = 10;
 		int blockCount = 10;
@@ -32,7 +33,7 @@ public class AddrServiceImpl implements AddrService {
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("blockCount", blockCount);
 		request.setAttribute("page", page);
-		
+		//page에 표시할 갯수를 알아가는
 		int lNum = page * pageCount;
 		int sNum = lNum - (pageCount - 1);
 		paramMap.put("lNum", lNum+"");
@@ -45,6 +46,7 @@ public class AddrServiceImpl implements AddrService {
 		if(totalCnt%pageCount>0) {
 			totalPageCnt ++;
 		}
+		//block 갯수를 알아가는
 		int lBlock = ((page-1)/blockCount+1) * blockCount;
 		int fBlock = lBlock-(blockCount-1);
 		if(lBlock>totalPageCnt) {
