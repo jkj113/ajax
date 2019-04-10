@@ -19,6 +19,8 @@ public class AddrDAOImpl implements AddrDAO {
 			"where rown>=?";                                                
 	private static String selectAddrCount = " select count(1) from address $where$"; //전체 갯수를 알아야 페이징을 하지
 	private static String SelectAddr = " select * from address where 1=1 and ad_num=?";
+	private static String UpdateAddr = " update address set ad_sido=?, ad_gugun=?, ad_dong=?, ad_lee=?, ad_bunji=?, ad_ho=? where ad_num=?";
+	private static String deleteAddr = " delete * from address where ad_num=?";
 	
 
 	@Override
@@ -103,6 +105,38 @@ public class AddrDAOImpl implements AddrDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+
+	@Override
+	public int updateAddr(Map<String, String> addr) {
+		try {
+			PreparedStatement ps = DBCon.getCon().prepareStatement(UpdateAddr);
+			ps.setString(1, addr.get("ad_sido"));
+			ps.setString(2, addr.get("ad_gugun"));
+			ps.setString(3, addr.get("ad_dong"));
+			ps.setString(4, addr.get("ad_lee"));
+			ps.setString(5, addr.get("ad_bunji"));
+			ps.setString(6, addr.get("ad_ho"));
+			ps.setString(7, addr.get("adNum"));
+			return ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+
+	@Override
+	public int deleteAddr(Map<String, String> addr) {
+		try {
+			PreparedStatement ps = DBCon.getCon().prepareStatement(deleteAddr);
+			ps.setString(1, addr.get("adNum"));
+			return ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 }

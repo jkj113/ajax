@@ -33,6 +33,23 @@
 </table>
 <div id="dView"></div>
 <script>
+function deleteAddr(){
+	xhr.open('POST','/addr2/delete');
+	xhr.setRequestHeader('Content-Type','application/json');
+	xhr.onreadystatechange = function(){
+		if(xhr.reayState===4){
+			if(xhr.status===200){
+			var res = JSON.parse(xhr.response);
+			alert(res.msg);
+			if(res.delete==='true'){
+				
+			}else{
+				
+			}
+			}
+		}
+	}
+}
 function search(){
 	var ad_dong = document.querySelector('#ad_dong').value;
 	location.href="/views/addr2/list?pageCount=${param.pageCount}&ad_dong="+ad_dong;
@@ -51,6 +68,39 @@ function search(){
 			}
 		xhr.send();
 	}
+	function updateAddr(){
+		var inputs = document.querySelectorAll('input[id]');
+		var params = {};
+		for(var i = 0; i<inputs.length;i++){
+			var input = inputs[i];
+			params[input.id]=input.value;
+		}
+		xhr.open('POST','/addr2/update');
+		xhr.setRequestHeader('Content-Type','application/json');
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState===4){
+				if(xhr.status===200){
+					var res = JSON.parse(xhr.response);
+					alert(res.msg);
+					if(res.update==='true'){
+						getList();
+						view(params.adNum);
+					}else{
+						
+					}
+				}
+			}
+			
+		}
+		xhr.send(JSON.stringify(params));
+//		alert(JSON.stringify(params));
+		
+//		alert(params);
+//		alert(inputs.length);
+	}
+//	function closeTable(){
+//		document.querySelector('#addrTable').style.display='none';
+//	}
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET','/addr2/list?pageCount=${param.pageCount}&page=${param.page}&ad_dong=${param.ad_dong}');
 	xhr.onreadystatechange = function(){

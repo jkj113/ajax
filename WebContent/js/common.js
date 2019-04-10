@@ -20,7 +20,7 @@ var AjaxUtil = function() {
 		async = async ? async : true;
 		xhr.open(method, url);  //open만한다-연결할 준비
 		xhr.onreadystatechange = function() {   //2부터 잡힌다. 없는 주소를 쓰면 1에서 바로 4. 처리를 해야 2,3이 나온다
-			if (xhr.readyState == 4) {   
+			if (xhr.readyState == 4) {   //xhr.readyState===xhr.DONE 
 				if (xhr.status == 200) {
 					this.callback(xhr.response);
 				}

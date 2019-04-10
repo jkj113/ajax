@@ -27,13 +27,13 @@ xhr.onreadystatechange = function() {
 	}
 }
 xhr.send();
-
+	}
 		var au = new AjaxUtil();
 		au.open('/addr2/list');
 		au.setCallback(callback);
 //		alert(au);
 		au.send();
-
+	
 /*		var CPU = function() {
 			this.core = 2;
 			this.callback = function() {
