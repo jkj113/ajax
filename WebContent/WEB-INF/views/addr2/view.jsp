@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,39 +14,38 @@
 		</tr>
 		<tr>
 			<th>주소코드</th>
-			<td><input type="text" id="ad_code" value="${addr.ad_code}"></td>
+			<td><input type="text" id="adCode" value="${addr.ad_code}"></td>
 		</tr>
 		<tr>
 			<th>시도</th>
-			<td><input type="text" id="ad_sido" value="${addr.ad_sido}"></td>
+			<td><input type="text" id="adSido" value="${addr.ad_sido}"></td>
 		</tr>
 		<tr>
 			<th>구군</th>
-			<td><input type="text" id="ad_gugun" value="${addr.ad_gugun}"></td>
+			<td><input type="text" id="adGugun" value="${addr.ad_gugun}"></td>
 		</tr>
 		<tr>
 			<th>동면읍</th>
-			<td><input type="text" id="ad_dong" value="${addr.ad_dong}"></td>
+			<td><input type="text" id="adDong" value="${addr.ad_dong}"></td>
 		</tr>
 		<tr>
 			<th>리</th>
-			<td><input type="text" id="ad_lee" value="${addr.ad_lee}"></td>
+			<td><input type="text" id="adLee" value="${addr.ad_lee}"></td>
 		</tr>
 		<tr>
 			<th>번지</th>
-			<td><input type="text" id="ad_bunji" value="${addr.ad_bunji}"></td>
+			<td><input type="text" id="adBunji" value="${addr.ad_bunji}"></td>
 		</tr>
 		<tr>
-			<th>호</th>
-			<td><input type="text" id="ad_ho" value="${addr.ad_ho}"></td>
+			<th>호수</th>
+			<td><input type="text" id="adHo" value="${addr.ad_ho}"></td>
 		</tr>
 		<tr>
-		<td colspan="2" align="center"><button onclick="updateAddr()">수정</button></td>
+			<td colspan="2" align="center">
+				<button onclick="updateAddr()">수정</button>
+			</td>
 		</tr>
-		<tr>
-		<td colspan="2" align="center"><button onclick="deleteAddr()">삭제</button></td>
-	</tr>
 	</table>
-<input type="hidden" id="adNum" value="${param.ad_num}">
+	<input type="hidden" id="adNum" value="${addr.ad_num}">	
 </body>
 </html>

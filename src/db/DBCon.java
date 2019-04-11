@@ -31,10 +31,15 @@ public class DBCon {
     
     public static Connection getCon() {
     	try {
-			Class.forName(DRIVER);
-			con = DriverManager.getConnection(URL,USER,PASSWORD);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			if(con==null || con.isClosed())
+			try {
+				Class.forName(DRIVER);
+				con = DriverManager.getConnection(URL,USER,PASSWORD);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

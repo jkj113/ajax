@@ -19,6 +19,12 @@ function search(){
 //pageCount는 가지고 가야한다. 몇개씩 볼 것인지 정한거니까
 </script>
 
+<select name="ad_sido">
+<c:forEach items="${asList}" var="sido">
+<option value="${sido}" <c:if test="${param.ad_sido==sido}">selected</c:if>> ${sido}</option>
+</c:forEach>
+</select>
+${agList}
 <label for="ad_dong">읍면동 : </label><input type="text" name="ad_dong" id="ad_dong" value="${param.ad_dong}">
 <button onclick="search()">검색</button>
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ThreadTest extends Thread{
+
 	class Horse extends Thread{
 		private long limit = 3000;
 		private String name;
@@ -39,11 +40,12 @@ public class ThreadTest extends Thread{
 		   }
 	   try {
 		   Thread.sleep(500);
-	   }catch(InterruptException e) {
+	   }catch(InterruptedException e) {
 		   e.printStackTrace();
 	   }
 	   }
    }
+   
    public static void main(String[] args) {
 	   List<Thread> tList = new ArrayList<>();
 	   for(int i = 1;i<5;i++) {
