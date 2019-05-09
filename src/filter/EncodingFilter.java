@@ -27,7 +27,7 @@ public class EncodingFilter implements Filter {
 		chain.doFilter(request, response);
 	}
 
-	public void init(FilterConfig fConfig) throws ServletException { //두번째 실행 그리고나서 다시 호출하지 않는다. 메모리 생성하고 나서 딱 한번만 그래서 초기화라고 한다.
+	public void init(FilterConfig fConfig) throws ServletException {//두번째 실행 그리고나서 다시 호출하지 않는다. 메모리 생성하고 나서 딱 한번만 그래서 초기화라고 한다.
 		encoding = fConfig.getInitParameter("encoding");
 		System.out.println("난 생성된 다음에 호출!!");
 	}

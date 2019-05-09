@@ -49,7 +49,7 @@ public class FileServiceImpl implements FileService {
 		Map<String,String> rMap = new HashMap<>();
 		int totalCnt = 0;
 		int targetCnt = 0;
-		Long sTime = System.currentTimeMillis();
+		long sTime = System.currentTimeMillis();
 		
 		List<String> colList = new ArrayList<>();
 		colList.add("ad_code");

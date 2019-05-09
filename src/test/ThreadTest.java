@@ -46,15 +46,15 @@ public class ThreadTest extends Thread{
 	   }
    }
    
-   public static void main(String[] args) {
-	   List<Thread> tList = new ArrayList<>();
-	   for(int i = 1;i<5;i++) {
-		   Thread t = new ThreadTest(i +"");tList.add(t);
-		   
-	   }
-	   for(Thread t : tList) {
-	   t.start();
-   }
-   }
+//   public static void main(String[] args) {
+//	   List<Thread> tList = new ArrayList<>();
+//	   for(int i = 1;i<5;i++) {
+//		   Thread t = new ThreadTest(i +"");tList.add(t);
+//		   
+//	   }
+//	   for(Thread t : tList) {
+//	   t.start();
+//   }
+//   }
 }
 }
